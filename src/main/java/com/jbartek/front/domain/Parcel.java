@@ -4,6 +4,7 @@ package com.jbartek.front.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
+@Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Parcel {
     @JsonProperty
@@ -26,30 +28,6 @@ public class Parcel {
     private double area;
     @JsonProperty
     private String userId;
-
-    public long getId() {
-        return id;
-    }
-
-    public String getParcelNumber() {
-        return parcelNumber;
-    }
-
-    public String getPrecinct() {
-        return precinct;
-    }
-
-    public String getSoilType() {
-        return soilType;
-    }
-
-    public double getArea() {
-        return area;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
 
     @Override
     public boolean equals(Object o) {

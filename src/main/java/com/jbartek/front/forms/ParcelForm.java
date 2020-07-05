@@ -2,7 +2,7 @@ package com.jbartek.front.forms;
 
 
 
-import com.jbartek.front.MainView;
+import com.jbartek.front.ParcelView;
 import com.jbartek.front.domain.Parcel;
 import com.jbartek.front.service.ParcelService;
 import com.vaadin.flow.component.button.Button;
@@ -32,9 +32,9 @@ public class ParcelForm extends FormLayout {
     private ParcelService service = ParcelService.getInstance();
     private Button addNewParcel = new Button("Xhamster");
 
-    private MainView mainView;
+    private ParcelView parcelView;
 
-    public ParcelForm(MainView mainView) {
+    public ParcelForm(ParcelView parcelView) {
         binder.bindInstanceFields(this);
         soilType.setItems(soilTypeValue);
         save.addClickListener(event -> save());
@@ -51,14 +51,14 @@ public class ParcelForm extends FormLayout {
     public void save(){
         Parcel parcel = binder.getBean();
         service.save(parcel);
-        mainView.refresh();
+        parcelView.refresh();
 //        setParcel(null);
     }
 
     public void delete(){
         Parcel parcel = binder.getBean();
         service.delete(parcel.getId());
-        mainView.refresh();
+        parcelView.refresh();
         setParcel(null);
 
     }

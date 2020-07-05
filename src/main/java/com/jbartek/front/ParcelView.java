@@ -14,11 +14,13 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 
-@Route
-public class MainView extends VerticalLayout {
+@Route(value = "", layout =MainLayout.class )
+@PageTitle("Parcels | MyAgrii")
+public class ParcelView extends VerticalLayout {
 
     private Label parcelLabel = new Label("PARCELS");
     private Label fieldWorkLabel = new Label("FIELD WORK");
@@ -26,24 +28,19 @@ public class MainView extends VerticalLayout {
     private VerticalLayout parcelLayout = new VerticalLayout();
     private VerticalLayout fieldWorkLayout = new VerticalLayout();
 
-
-
     private ParcelService parcelService = ParcelService.getInstance();
     private FieldWorkService fieldWorkService = FieldWorkService.getInstance();
-
 
     private Grid<Parcel> parcelGrid = new Grid(Parcel.class);
     private Grid<FieldWork> fieldWorkGrid = new Grid<>(FieldWork.class);
 
-
     private ParcelForm parcelForm = new ParcelForm(this);
-    private FieldWorkForm fieldWorkForm = new FieldWorkForm(this);
+    private FieldWorkForm fieldWorkForm = new FieldWorkForm();
 
 
 
-    public MainView() {
+    public ParcelView() {
         refresh();
-        createHeader();
         initParcelSectionControls();
         add(parcelLayout, parcelForm, parcelGrid);
 
@@ -85,5 +82,5 @@ public class MainView extends VerticalLayout {
         parcelGrid.setColumns("parcelNumber", "precinct", "soilType", "area");
     }
 
-    
+
 }

@@ -29,7 +29,7 @@ public class FieldWorkService {
     }
 
     public void fetchAll() {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "fieldWork/jbartek@jn.pl")
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "fieldWorkByUser/kodilla@test.pl")
                 .encode()
                 .build()
                 .toUri();
@@ -57,5 +57,7 @@ public class FieldWorkService {
                 .toUri();
         restTemplate.delete(url);
     }
+
+
 
 }
