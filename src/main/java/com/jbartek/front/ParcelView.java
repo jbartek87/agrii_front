@@ -14,16 +14,17 @@ import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.Route;
 
 
 @Route
 public class MainView extends VerticalLayout {
 
-    private Label parcelLabel = new Label();
-    private Label fieldWorkLabel = new Label();
+    private Label parcelLabel = new Label("PARCELS");
+    private Label fieldWorkLabel = new Label("FIELD WORK");
+
+    private VerticalLayout parcelLayout = new VerticalLayout();
+    private VerticalLayout fieldWorkLayout = new VerticalLayout();
 
 
 
@@ -39,29 +40,16 @@ public class MainView extends VerticalLayout {
     private FieldWorkForm fieldWorkForm = new FieldWorkForm(this);
 
 
-    private TextField filter = new TextField();
-
-
 
     public MainView() {
-        createHeader();
-        filter.setPlaceholder("Filter by parcel number");
-        filter.setClearButtonVisible(true);
-        filter.setValueChangeMode(ValueChangeMode.EAGER);
-        filter.addValueChangeListener(e->update());
-        parcelGrid.setColumns("parcelNumber", "precinct", "soilType", "area");
-        HorizontalLayout mainContent = new HorizontalLayout(parcelGrid, parcelForm);
-        mainContent.setSizeFull();
-        parcelGrid.setSizeFull();
-        add(filter, mainContent);
-        setSizeFull();
         refresh();
+        createHeader();
+        initParcelSectionControls();
+        add(parcelLayout, parcelForm, parcelGrid);
 
-    }
 
+        hideForms();
 
-    public void update(){
-        parcelGrid.setItems(parcelService.finByParcelNumber(filter.getValue()));
     }
 
     public void refresh(){
@@ -74,9 +62,7 @@ public class MainView extends VerticalLayout {
     private void createHeader() {
         H1 logo = new H1("MyAgrii");
         logo.addClassName("logo");
-
         Anchor logout = new Anchor("logout", "Log out");
-
         HorizontalLayout header = new HorizontalLayout(new DrawerToggle(), logo, logout);
         header.expand(logo);
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
@@ -89,4 +75,15 @@ public class MainView extends VerticalLayout {
         parcelForm.setParcel(null);
         fieldWorkForm.setFieldWork(null);
     }
+
+    private void initParcelSectionControls(){
+        parcelLayout.add(parcelLabel);
+        parcelLayout.setHorizontalComponentAlignment(Alignment.CENTER, parcelLabel);
+
+        // HERE PUT FILTER
+
+        parcelGrid.setColumns("parcelNumber", "precinct", "soilType", "area");
+    }
+
+    
 }
