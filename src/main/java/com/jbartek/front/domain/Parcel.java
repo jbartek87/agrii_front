@@ -12,12 +12,12 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
+@Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Parcel {
     @JsonProperty
-    private long id;
+    private String id;
     @JsonProperty
     private String parcelNumber;
     @JsonProperty

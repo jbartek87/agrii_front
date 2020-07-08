@@ -2,13 +2,11 @@ package com.jbartek.front.service;
 
 import com.jbartek.front.config.AppConfig;
 import com.jbartek.front.domain.FieldWork;
-import com.jbartek.front.domain.Parcel;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FieldWorkService {
     private RestTemplate restTemplate = new RestTemplate();
@@ -25,6 +23,7 @@ public class FieldWorkService {
     }
 
     public Set getFieldWorkList(){
+
         return new HashSet<>(fieldWorkList);
     }
 
@@ -39,10 +38,10 @@ public class FieldWorkService {
                 .orElse(new ArrayList<>()));
     }
 
-    public List<FieldWork> finByPlant(String plant){
-        return fieldWorkList.stream()
-                .filter(p->p.getCultivatedPlant().contains(plant))
-                .collect(Collectors.toList());
+
+    public void update(FieldWork fieldWork){
+        String url = appConfig.getBackendEndpoint() + "fieldWork";
+        restTemplate.put(url, (fieldWork), Void.class);
     }
 
     public void save(FieldWork fieldWork){
@@ -51,7 +50,7 @@ public class FieldWorkService {
     }
 
     public void delete(long id){
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint()+ "fieldWork/ + id")
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint()+ "fieldWork/" +id)
                 .encode()
                 .build()
                 .toUri();

@@ -1,7 +1,6 @@
 package com.jbartek.front.service;
 
 import com.jbartek.front.config.AppConfig;
-import com.jbartek.front.domain.FieldWork;
 import com.jbartek.front.domain.PlantProtection;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -15,6 +14,7 @@ public class PlantProtectionService {
 
     private static PlantProtectionService plantProtectionService;
     private List<PlantProtection> plantProtectionList;
+
 
     public static PlantProtectionService getInstance(){
         if(plantProtectionService==null){
@@ -40,11 +40,11 @@ public class PlantProtectionService {
 
     public void save(PlantProtection plantProtection){
         String url = appConfig.getBackendEndpoint() + "plantProtection";
-        restTemplate.postForObject(url, (plantProtection), Void.class);
+        restTemplate.put(url, (plantProtection), Void.class);
     }
 
     public void delete(long id){
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint()+ "plantProtection/ + id")
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint()+ "plantProtection/" + id)
                 .encode()
                 .build()
                 .toUri();

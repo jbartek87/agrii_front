@@ -13,6 +13,7 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
+import lombok.Getter;
 
 
 
@@ -21,46 +22,56 @@ public class ParcelForm extends FormLayout {
 
 
 
+    private TextField id = new TextField("Parcel ID");
     private TextField parcelNumber = new TextField("Parcel Number");
     private TextField precinct = new TextField("Precinct");
     private ComboBox<String> soilType = new ComboBox("Soil TYpe");
     private NumberField area = new NumberField("Area");
     private TextField userId = new TextField("User id");
-    private com.vaadin.flow.component.button.Button save = new com.vaadin.flow.component.button.Button("Save");
+    public com.vaadin.flow.component.button.Button update = new com.vaadin.flow.component.button.Button("Update");
     private Button delete = new Button("Delete");
+    public Button save = new Button("Save");
     private Binder<Parcel> binder = new Binder<>(Parcel.class);
     private ParcelService service = ParcelService.getInstance();
-    private Button addNewParcel = new Button("Xhamster");
 
     private ParcelView parcelView;
 
     public ParcelForm(ParcelView parcelView) {
-        binder.bindInstanceFields(this);
         soilType.setItems(soilTypeValue);
+        soilType.setAllowCustomValue(false);
+        this.parcelView = parcelView;
+        update.addClickListener(event -> update());
         save.addClickListener(event -> save());
         delete.addClickListener(event -> delete());
-        HorizontalLayout buttons = new HorizontalLayout(save, delete);
+        binder.bindInstanceFields(this);
+        HorizontalLayout buttons = new HorizontalLayout(save, update,delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        addNewParcel.addClickListener(e->{
-            setParcel(new Parcel());
-        });
-        add(parcelNumber,precinct, soilType, area, userId, buttons);
+        delete.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        update.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        id.setVisible(false);
+        add(id,parcelNumber,precinct, soilType, area, userId, buttons);
 
+    }
+
+    public void update(){
+        Parcel parcel = binder.getBean();
+        service.upadate(parcel);
+        parcelView.refresh();
+        setParcel(null);
     }
 
     public void save(){
         Parcel parcel = binder.getBean();
         service.save(parcel);
         parcelView.refresh();
-//        setParcel(null);
+        setParcel(null);
     }
 
     public void delete(){
         Parcel parcel = binder.getBean();
-        service.delete(parcel.getId());
+        service.delete(Long.parseLong(parcel.getId()));
         parcelView.refresh();
         setParcel(null);
-
     }
 
     public void setParcel(Parcel parcel){

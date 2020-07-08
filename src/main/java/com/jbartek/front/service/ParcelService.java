@@ -7,7 +7,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class ParcelService {
     private RestTemplate restTemplate = new RestTemplate();
@@ -39,16 +39,15 @@ public class ParcelService {
                 .orElse(new ArrayList<>()));
     }
 
-    public List<Parcel> finByParcelNumber(String number){
-        return parcelsList.stream()
-                .filter(p->p.getParcelNumber().contains(number))
-                .collect(Collectors.toList());
-    }
-
 
     public void save(Parcel parcel){
         String url = appConfig.getBackendEndpoint() + "parcels";
         restTemplate.postForObject(url, (parcel), Void.class);
+    }
+
+    public void upadate(Parcel parcel){
+        String url = appConfig.getBackendEndpoint() + "parcels";
+        restTemplate.put(url, (parcel), Void.class);
     }
 
     public void delete(long id) {
