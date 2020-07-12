@@ -7,7 +7,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class ParcelService {
     private RestTemplate restTemplate = new RestTemplate();
@@ -28,8 +28,8 @@ public class ParcelService {
         return new HashSet<>(parcelsList);
     }
 
-    public void fetchAll() {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "parcelsBy/jbartek@jn.pl")
+    public List<Parcel> fetchAll() {
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "parcelsBy/farmer@wp.pl")
                 .encode()
                 .build()
                 .toUri();
@@ -37,12 +37,7 @@ public class ParcelService {
         parcelsList = new ArrayList<>(parcels
                 .map(Arrays::asList)
                 .orElse(new ArrayList<>()));
-    }
-
-    public List<Parcel> finByParcelNumber(String number){
-        return parcelsList.stream()
-                .filter(p->p.getParcelNumber().contains(number))
-                .collect(Collectors.toList());
+        return parcelsList;
     }
 
 
@@ -51,11 +46,21 @@ public class ParcelService {
         restTemplate.postForObject(url, (parcel), Void.class);
     }
 
+    public void upadate(Parcel parcel){
+        String url = appConfig.getBackendEndpoint() + "parcels";
+        restTemplate.put(url, (parcel), Void.class);
+    }
+
     public void delete(long id) {
         URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint()+"parcels/" + id)
                 .encode()
                 .build()
                 .toUri();
         restTemplate.delete(url);
+    }
+
+    public String getLori(){
+        String result = restTemplate.getForObject(appConfig.getBackendEndpoint()+"authorize", String.class);
+        return result;
     }
 }

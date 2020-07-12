@@ -2,7 +2,8 @@ package com.jbartek.front.forms;
 
 
 
-import com.jbartek.front.MainView;
+import com.jbartek.front.service.UserService;
+import com.jbartek.front.views.ParcelView;
 import com.jbartek.front.domain.Parcel;
 import com.jbartek.front.service.ParcelService;
 import com.vaadin.flow.component.button.Button;
@@ -15,52 +16,64 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 
 
-
 public class ParcelForm extends FormLayout {
     public String[] soilTypeValue = {"GRUNT_ORNY", "TUZ"};
 
 
 
+    private UserService userService = UserService.getInstance();
+    private TextField id = new TextField("Parcel ID");
     private TextField parcelNumber = new TextField("Parcel Number");
     private TextField precinct = new TextField("Precinct");
     private ComboBox<String> soilType = new ComboBox("Soil TYpe");
     private NumberField area = new NumberField("Area");
-    private TextField userId = new TextField("User id");
-    private com.vaadin.flow.component.button.Button save = new com.vaadin.flow.component.button.Button("Save");
+    public TextField userId = new TextField("User id");
+    public com.vaadin.flow.component.button.Button update = new com.vaadin.flow.component.button.Button("Update");
     private Button delete = new Button("Delete");
+    public Button save = new Button("Save");
     private Binder<Parcel> binder = new Binder<>(Parcel.class);
     private ParcelService service = ParcelService.getInstance();
-    private Button addNewParcel = new Button("Xhamster");
 
-    private MainView mainView;
+    private ParcelView parcelView;
 
-    public ParcelForm(MainView mainView) {
-        binder.bindInstanceFields(this);
+    public ParcelForm(ParcelView parcelView) {
         soilType.setItems(soilTypeValue);
+        soilType.setAllowCustomValue(false);
+        this.parcelView = parcelView;
+        update.addClickListener(event -> update());
         save.addClickListener(event -> save());
         delete.addClickListener(event -> delete());
-        HorizontalLayout buttons = new HorizontalLayout(save, delete);
+        binder.bindInstanceFields(this);
+        HorizontalLayout buttons = new HorizontalLayout(save, update,delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        addNewParcel.addClickListener(e->{
-            setParcel(new Parcel());
-        });
-        add(parcelNumber,precinct, soilType, area, userId, buttons);
+        delete.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        update.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        id.setVisible(false);
+        add(id,parcelNumber,precinct, soilType, area, userId, buttons);
 
+    }
+
+
+
+    public void update(){
+        Parcel parcel = binder.getBean();
+        service.upadate(parcel);
+        parcelView.refresh();
+        setParcel(null);
     }
 
     public void save(){
         Parcel parcel = binder.getBean();
         service.save(parcel);
-        mainView.refresh();
-//        setParcel(null);
+        parcelView.refresh();
+        setParcel(null);
     }
 
     public void delete(){
         Parcel parcel = binder.getBean();
-        service.delete(parcel.getId());
-        mainView.refresh();
+        service.delete(Long.parseLong(parcel.getId()));
+        parcelView.refresh();
         setParcel(null);
-
     }
 
     public void setParcel(Parcel parcel){

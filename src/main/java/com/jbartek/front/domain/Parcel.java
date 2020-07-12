@@ -4,6 +4,7 @@ package com.jbartek.front.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -11,11 +12,12 @@ import java.util.Objects;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 @Setter
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Parcel {
     @JsonProperty
-    private long id;
+    private String id;
     @JsonProperty
     private String parcelNumber;
     @JsonProperty
@@ -27,48 +29,21 @@ public class Parcel {
     @JsonProperty
     private String userId;
 
-    public long getId() {
-        return id;
-    }
-
-    public String getParcelNumber() {
-        return parcelNumber;
-    }
-
-    public String getPrecinct() {
-        return precinct;
-    }
-
-    public String getSoilType() {
-        return soilType;
-    }
-
-    public double getArea() {
-        return area;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Parcel)) return false;
         Parcel parcel = (Parcel) o;
-        return id == parcel.id &&
-                Double.compare(parcel.area, area) == 0 &&
-                userId == parcel.userId &&
+        return Double.compare(parcel.area, area) == 0 &&
+                Objects.equals(id, parcel.id) &&
                 Objects.equals(parcelNumber, parcel.parcelNumber) &&
                 Objects.equals(precinct, parcel.precinct) &&
-                soilType == parcel.soilType;
+                Objects.equals(soilType, parcel.soilType) &&
+                Objects.equals(userId, parcel.userId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, parcelNumber, precinct, soilType, area, userId);
     }
-
-
-
 }
