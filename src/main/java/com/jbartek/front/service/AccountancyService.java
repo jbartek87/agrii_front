@@ -27,7 +27,7 @@ public class AccountancyService {
     }
 
     public void fetchAll(){
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "accountancyByEmail/jbartek@jn.pl")
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "accountancyByEmail/farmer@wp.pl")
                 .encode()
                 .build()
                 .toUri();

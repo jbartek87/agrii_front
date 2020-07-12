@@ -42,6 +42,7 @@ public class AccountancyForm extends FormLayout {
         save.addClickListener(event -> save());
         delete.addClickListener(event -> delete());
         update.addClickListener(event -> update());
+        id.setVisible(false);
         binder.bindInstanceFields(this);
         HorizontalLayout buttons = new HorizontalLayout(save, update,delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
