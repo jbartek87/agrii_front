@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Objects;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -28,25 +26,6 @@ public class Parcel {
     private double area;
     @JsonProperty
     private String userId;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Parcel)) return false;
-        Parcel parcel = (Parcel) o;
-        return id == parcel.id &&
-                Double.compare(parcel.area, area) == 0 &&
-                userId == parcel.userId &&
-                Objects.equals(parcelNumber, parcel.parcelNumber) &&
-                Objects.equals(precinct, parcel.precinct) &&
-                soilType == parcel.soilType;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, parcelNumber, precinct, soilType, area, userId);
-    }
-
 
 
 }

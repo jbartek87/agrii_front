@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -29,21 +28,5 @@ public class FieldWork {
     @JsonProperty
     private String parcelId;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof FieldWork)) return false;
-        FieldWork fieldWork = (FieldWork) o;
-        return id == fieldWork.id &&
-                Objects.equals(dateOfWork, fieldWork.dateOfWork) &&
-                Objects.equals(cultivatedPlant, fieldWork.cultivatedPlant) &&
-                Objects.equals(typeOfWork, fieldWork.typeOfWork) &&
-                Objects.equals(comments, fieldWork.comments) &&
-                Objects.equals(parcelId, fieldWork.parcelId);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, dateOfWork, cultivatedPlant, typeOfWork, comments, parcelId);
-    }
 }

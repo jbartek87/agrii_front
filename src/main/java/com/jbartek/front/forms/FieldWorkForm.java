@@ -1,6 +1,7 @@
 package com.jbartek.front.forms;
 
-import com.jbartek.front.FieldWorkView;
+import com.jbartek.front.service.ParcelService;
+import com.jbartek.front.views.FieldWorkView;
 import com.jbartek.front.domain.FieldWork;
 import com.jbartek.front.service.FieldWorkService;
 import com.vaadin.flow.component.button.Button;
@@ -12,15 +13,21 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 public class FieldWorkForm extends FormLayout {
+    private ParcelService parcelService = ParcelService.getInstance();
+    public List<String> fieldNumber = parcelService.fetchAll().stream()
+            .map(x -> x.getId())
+            .collect(Collectors.toList());
     public String[] workType = {"ORKA", "UPRAWA_BEZORKOWA", "UPRAWA_PRZEDSIEWNA", "SIEW", "NAWOZENIE", "ZBIOR"};
-
     private DatePicker dateOfWork = new DatePicker("Date of work");
     private TextField cultivatedPlant = new TextField("Cultivated plant");
     private ComboBox<String> typeOfWork = new ComboBox<>("Type of work");
     private TextField comments = new TextField("Comments");
-    private TextField parcelId = new TextField("Parcel Id");
+    private ComboBox<String> parcelId = new ComboBox<>("Parcel ID");
     public com.vaadin.flow.component.button.Button update = new com.vaadin.flow.component.button.Button("Update");
     private Button delete = new Button("Delete");
     public Button save = new Button("Save");
@@ -31,6 +38,8 @@ public class FieldWorkForm extends FormLayout {
     public FieldWorkForm(FieldWorkView fieldWorkView){
         typeOfWork.setItems(workType);
         typeOfWork.setAllowCustomValue(false);
+        parcelId.setItems(fieldNumber);
+        parcelId.setAllowCustomValue(false);
         this.fieldWorkView = fieldWorkView;
         save.addClickListener(event -> save());
         update.addClickListener(event -> update());

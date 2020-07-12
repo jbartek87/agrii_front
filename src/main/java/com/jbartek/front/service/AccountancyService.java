@@ -39,6 +39,11 @@ public class AccountancyService {
 
     public void save(Accountancy accountancy){
         String url = appConfig.getBackendEndpoint() + "accountancy";
+        restTemplate.postForObject(url, (accountancy), Void.class);
+    }
+
+    public void update(Accountancy accountancy){
+        String url = appConfig.getBackendEndpoint() + "accountancy";
         restTemplate.put(url, (accountancy), Void.class);
     }
 

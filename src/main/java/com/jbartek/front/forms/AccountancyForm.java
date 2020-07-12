@@ -1,6 +1,6 @@
 package com.jbartek.front.forms;
 
-import com.jbartek.front.AccountancyView;
+import com.jbartek.front.views.AccountancyView;
 import com.jbartek.front.domain.Accountancy;
 import com.jbartek.front.service.AccountancyService;
 import com.vaadin.flow.component.button.Button;
@@ -9,13 +9,12 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.NumberField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.Binder;
 
 
 public class AccountancyForm extends FormLayout {
-    public String[] eventType = {"INCOME", "OUTCOME"};
+    public String[] eventType = {"INCOME", "EXPENDITURE"};
 
     private TextField id = new TextField("ID");
     private DatePicker dateOfEvent = new DatePicker("Date");
@@ -27,9 +26,10 @@ public class AccountancyForm extends FormLayout {
     private TextField vatRate = new TextField("VAT");
     private TextField netTotalSum = new TextField("Neto total sum");
     private TextField totalSum = new TextField("Total sum");
-    private TextField userId = new TextField("User id");
-    private Button save = new com.vaadin.flow.component.button.Button("Save");
+    public TextField userId = new TextField("User id");
+    public com.vaadin.flow.component.button.Button update = new com.vaadin.flow.component.button.Button("Update");
     private Button delete = new Button("Delete");
+    public Button save = new Button("Save");
     private AccountancyService service = AccountancyService.getInstance();
     private Binder<Accountancy> binder = new Binder<>(Accountancy.class);
     private AccountancyView accountancyView;
@@ -41,12 +41,21 @@ public class AccountancyForm extends FormLayout {
         this.accountancyView = accountancyView;
         save.addClickListener(event -> save());
         delete.addClickListener(event -> delete());
+        update.addClickListener(event -> update());
         binder.bindInstanceFields(this);
-        HorizontalLayout buttons = new HorizontalLayout(save, delete);
+        HorizontalLayout buttons = new HorizontalLayout(save, update,delete);
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         delete.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        update.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
         add(id,dateOfEvent,typeOfEvent,invoiceNumber,product,productQuantity,netUnitPrice,vatRate,netTotalSum,
-                totalSum,buttons);
+                totalSum,userId,buttons);
+    }
+
+    public void update(){
+        Accountancy accountancy = binder.getBean();
+        service.update(accountancy);
+        accountancyView.refresh();
+        setAccountancy(null);
     }
 
     public void save(){

@@ -1,6 +1,7 @@
 package com.jbartek.front.service;
 
 import com.jbartek.front.config.AppConfig;
+import com.jbartek.front.domain.Parcel;
 import com.jbartek.front.domain.User;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -27,11 +28,23 @@ public class UserService {
         return user;
     }
 
-    public void fetchUser(){
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "usersByEmail/jbartek@jn.pl")
+    public User fetchUser(){
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "usersByEmail/farmer@wp.pl")
                 .encode()
                 .build()
                 .toUri();
         user = restTemplate.getForObject(url, User.class);
+        return user;
     }
+
+    public void save(User user){
+        String url = appConfig.getBackendEndpoint() + "users";
+        restTemplate.postForObject(url, (user), Void.class);
+    }
+
+    public Boolean validate(){
+        String url = appConfig.getBackendEndpoint() + "validateUser/farmer@wp.pl&12345";
+       return restTemplate.getForObject(url, Boolean.class);
+    }
+
 }

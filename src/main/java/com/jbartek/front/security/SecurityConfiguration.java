@@ -19,7 +19,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private static final String LOGIN_FAILURE_URL = "/login?error";
     private static final String LOGIN_URL = "/name";
     private static final String LOGOUT_SUCCESS_URL = "/login";
-    private String userName = "jbartek87@o2.pl";
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -41,8 +40,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     public UserDetailsService userDetailsService() {
         UserDetails user =
-                User.withUsername(userName)
-                        .password("{noop}password")
+                User.withUsername("farmer")
+                        .password("{noop}farmer")
                         .roles("USER")
                         .build();
 

@@ -28,7 +28,7 @@ public class FieldWorkService {
     }
 
     public void fetchAll() {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "fieldWorkByUser/kodilla@test.pl")
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "fieldWorkByUser/farmer@wp.pl")
                 .encode()
                 .build()
                 .toUri();

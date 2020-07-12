@@ -1,5 +1,6 @@
-package com.jbartek.front;
+package com.jbartek.front.views;
 
+import com.jbartek.front.MainLayout;
 import com.jbartek.front.domain.FieldWork;
 import com.jbartek.front.domain.Parcel;
 import com.jbartek.front.forms.FieldWorkForm;

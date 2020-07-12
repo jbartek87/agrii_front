@@ -1,25 +1,19 @@
-package com.jbartek.front;
+package com.jbartek.front.views;
 
+import com.jbartek.front.MainLayout;
 import com.jbartek.front.domain.Parcel;
-import com.jbartek.front.domain.PlantProtection;
-import com.jbartek.front.forms.FieldWorkForm;
 import com.jbartek.front.forms.ParcelForm;
-import com.jbartek.front.service.FieldWorkService;
 import com.jbartek.front.service.ParcelService;
-import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
-import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Label;
-import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 
-@Route(value = "", layout =MainLayout.class )
+@Route(value = "", layout = MainLayout.class )
 @PageTitle("Parcels | MyAgrii")
 public class ParcelView extends VerticalLayout {
 
@@ -39,6 +33,8 @@ public class ParcelView extends VerticalLayout {
             parcelForm.update.setVisible(false);
             parcelForm.setParcel(new Parcel());
             parcelForm.save.setVisible(true);
+            parcelForm.userId.setValue("1");
+            parcelForm.userId.setVisible(false);
         });
         HorizontalLayout toolbar = new HorizontalLayout(addNewParcel);
         HorizontalLayout mainContent = new HorizontalLayout(parcelGrid, parcelForm);

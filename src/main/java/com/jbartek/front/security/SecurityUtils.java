@@ -20,6 +20,8 @@ public final class SecurityUtils {
         return parameterValue != null
                 && Stream.of(ServletHelper.RequestType.values())
                 .anyMatch(r -> r.getIdentifier().equals(parameterValue));
+
+
     }
 
     static boolean isUserLoggedIn() {

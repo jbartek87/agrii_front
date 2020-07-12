@@ -28,7 +28,7 @@ public class PlantProtectionService {
     }
 
     public void fetchAll() {
-        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "plantProtectionEmail/kodilla@test.pl")
+        URI url = UriComponentsBuilder.fromHttpUrl(appConfig.getBackendEndpoint() + "plantProtectionEmail/farmer@wp.pl")
                 .encode()
                 .build()
                 .toUri();
@@ -39,6 +39,11 @@ public class PlantProtectionService {
     }
 
     public void save(PlantProtection plantProtection){
+        String url = appConfig.getBackendEndpoint() + "plantProtection";
+        restTemplate.postForObject(url, (plantProtection), Void.class);
+    }
+
+    public void update(PlantProtection plantProtection){
         String url = appConfig.getBackendEndpoint() + "plantProtection";
         restTemplate.put(url, (plantProtection), Void.class);
     }
