@@ -48,6 +48,7 @@ public class ParcelView extends VerticalLayout {
         parcelGrid.addItemClickListener(event -> parcelForm.update.setVisible(true));
         parcelGrid.addItemClickListener(event -> parcelForm.save.setVisible(false));
 
+
     }
 
     public void refresh(){

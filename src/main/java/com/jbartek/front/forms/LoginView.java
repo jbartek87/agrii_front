@@ -49,7 +49,7 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
         user.setId(1);
         user.setEmail("farmer@wp.pl");
         user.setFirstName("Karol");
-        user.setLastName("Kowalski");
+        user.setLastName("Marshal");
         user.setFarmNumber("PL2000");
         user.setPassword("12345");
         service.save(user);

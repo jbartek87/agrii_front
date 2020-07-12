@@ -18,12 +18,11 @@ public class UserView extends VerticalLayout{
     private VerticalLayout userLayout = new VerticalLayout();
     private UserService userService = UserService.getInstance();
     private Grid<User> userGrid = new Grid<>(User.class);
-    private UserForm userForm = new UserForm();
 
     public UserView() {
         refresh();
         initUserSectionControls();
-        add(userLayout, userForm, userGrid);
+        add(userLayout, userGrid);
     }
 
     public void refresh(){
