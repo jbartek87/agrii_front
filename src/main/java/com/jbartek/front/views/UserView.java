@@ -2,7 +2,6 @@ package com.jbartek.front.views;
 
 import com.jbartek.front.MainLayout;
 import com.jbartek.front.domain.User;
-import com.jbartek.front.forms.UserForm;
 import com.jbartek.front.service.UserService;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.Label;
@@ -36,6 +35,6 @@ public class UserView extends VerticalLayout{
 
         //FILTER
 
-        userGrid.setColumns("firstName", "lastName", "farmNumber", "email", "password");
+        userGrid.setColumns("firstName", "lastName", "farmNumber", "email");
     }
 }

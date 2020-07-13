@@ -2,6 +2,7 @@ package com.jbartek.front.forms;
 
 
 
+import com.jbartek.front.domain.User;
 import com.jbartek.front.service.UserService;
 import com.jbartek.front.views.ParcelView;
 import com.jbartek.front.domain.Parcel;
@@ -84,6 +85,12 @@ public class ParcelForm extends FormLayout {
             setVisible(true);
             parcelNumber.focus();
         }
+    }
+
+    public long getUserId(){
+        User userCreated = userService.fetchUser();
+        long userId = userCreated.getId();
+        return userId;
     }
 
 }

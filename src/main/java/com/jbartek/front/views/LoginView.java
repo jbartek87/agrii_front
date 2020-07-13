@@ -1,4 +1,4 @@
-package com.jbartek.front.forms;
+package com.jbartek.front.views;
 
 import com.jbartek.front.domain.User;
 import com.jbartek.front.service.UserService;
@@ -24,14 +24,15 @@ public class LoginView extends VerticalLayout implements BeforeEnterObserver {
 
     public LoginView(){
         register.addClickListener(validate -> checkout());
+        register.addClickListener(log -> login.setVisible(true));
         addClassName("login-view");
         setSizeFull();
         setAlignItems(Alignment.CENTER);
         setJustifyContentMode(JustifyContentMode.CENTER);
-
+        login.setVisible(false);
         login.setAction("login");
 
-        add(new H1("Vaadin CRM"), login, register);
+        add(new H1("My Agrii"), login, register);
     }
 
     @Override
