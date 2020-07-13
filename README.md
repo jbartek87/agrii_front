@@ -11,5 +11,5 @@ działkę. Następnie daną działke możemy przypisywać do konkretnych upraw p
 W zakładce NEWS aplikacja LoremipsumApi generuje nam news.
 W zakładce Weather możemy wybrać z listy miejscowość i sprawdzić temperature, prędkość wiatru i wiglotność.
 
-Planuje się wprowadzić szereg statystyk odnośnie poszczególnych encji , a także systemu wspomagania decyzji 
+W kolejnych aktualizacjach planuje się wprowadzić rejestracje,szereg statystyk odnośnie poszczególnych encji , a także systemu wspomagania decyzji 
 odnośnie stosowania zabiegów ochrony roślin przy pomocy OpenWeatherApi.
