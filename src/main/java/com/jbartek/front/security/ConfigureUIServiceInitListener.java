@@ -2,7 +2,7 @@ package com.jbartek.front.security;
 
 
 
-import com.jbartek.front.forms.LoginView;
+import com.jbartek.front.views.LoginView;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.router.BeforeEnterEvent;
 import com.vaadin.flow.server.ServiceInitEvent;

@@ -4,6 +4,7 @@ import com.jbartek.front.MainLayout;
 import com.jbartek.front.domain.Accountancy;
 import com.jbartek.front.domain.FieldWork;
 import com.jbartek.front.forms.AccountancyForm;
+import com.jbartek.front.forms.ParcelForm;
 import com.jbartek.front.service.AccountancyService;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -36,7 +37,7 @@ public class AccountancyView extends VerticalLayout {
             accountancyForm.update.setVisible(false);
             accountancyForm.setAccountancy(new Accountancy());
             accountancyForm.save.setVisible(true);
-            accountancyForm.userId.setValue("1");
+            accountancyForm.userId.setValue(String.valueOf(accountancyForm.getUserId()));
             accountancyForm.userId.setVisible(false);
         });
         HorizontalLayout toolbar = new HorizontalLayout(addNewAccountancy);

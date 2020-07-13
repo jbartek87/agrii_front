@@ -1,5 +1,7 @@
 package com.jbartek.front.forms;
 
+import com.jbartek.front.domain.User;
+import com.jbartek.front.service.UserService;
 import com.jbartek.front.views.AccountancyView;
 import com.jbartek.front.domain.Accountancy;
 import com.jbartek.front.service.AccountancyService;
@@ -31,6 +33,7 @@ public class AccountancyForm extends FormLayout {
     private Button delete = new Button("Delete");
     public Button save = new Button("Save");
     private AccountancyService service = AccountancyService.getInstance();
+    private UserService userService = UserService.getInstance();
     private Binder<Accountancy> binder = new Binder<>(Accountancy.class);
     private AccountancyView accountancyView;
 
@@ -81,5 +84,11 @@ public class AccountancyForm extends FormLayout {
             setVisible(true);
             invoiceNumber.focus();
         }
+    }
+
+    public long getUserId(){
+        User userCreated = userService.fetchUser();
+        long userId = userCreated.getId();
+        return userId;
     }
 }

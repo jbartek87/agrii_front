@@ -33,7 +33,7 @@ public class ParcelView extends VerticalLayout {
             parcelForm.update.setVisible(false);
             parcelForm.setParcel(new Parcel());
             parcelForm.save.setVisible(true);
-            parcelForm.userId.setValue("1");
+            parcelForm.userId.setValue(String.valueOf(parcelForm.getUserId()));
             parcelForm.userId.setVisible(false);
         });
         HorizontalLayout toolbar = new HorizontalLayout(addNewParcel);
